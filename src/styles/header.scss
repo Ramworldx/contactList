@@ -1,0 +1,26 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  margin: 2.5%;
+  .Header__title {
+    color: rgb(0, 9, 87);
+    font-size: 150%;
+    font-weight: 600;
+  }
+  .Header__a {
+    text-decoration: none;
+  }
+  .Header__logout {
+    color: rgb(0, 9, 87);
+    font-size: 150%;
+    font-weight: 600;
+    opacity: 0.4;
+  }
+  .Header__logout:hover {
+    color: rgb(0, 185, 46);
+    opacity: 1;
+  }
+}
+
+
