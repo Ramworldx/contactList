@@ -1,64 +1,62 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
-import { setContact } from '../../store/actions/Actions'
-import '../../styles/createContact.scss'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { Routing } from '../../Routing';
+import { setContact } from '../../store/actions/Actions';
+import Input from '../elements/Input';
 
 const CreateContact = () => {
 
     const [contactName, setContactName] = useState('')
     const [contactNumber, setContactNumber] = useState('')
-    const list = useSelector(state => state.mainPage.contactsData)
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const randomId = Math.ceil(Math.random()*1000)
+    const randomId = Math.ceil(Math.random() * 1000)
 
-    let onNameChange = (event) => {
-        let value = event.target.value
+    const onNameChange = (e) => {
+        const value = e.target.value
         setContactName(value)
     }
-    let onNumberChange = (event) => {
-        let value = event.target.value
+
+    const onNumberChange = (e) => {
+        const value = e.target.value
         setContactNumber(value)
     }
-    let onSave = () => {
+
+    const onSave = (e) => {
+        e.preventDefault()
         const newContact = {
             name: contactName,
             number: contactNumber,
             id: randomId,
-            imageURL: `https://picsum.photos/200/300?random=${list.length + 1}`
+            imageURL: `https://picsum.photos/id/${randomId}/200/300`
         }
-        if (contactName.length && contactNumber.length) {
+        if (contactName && contactNumber) {
             dispatch(setContact(newContact))
-            history.push('/contactList/')
+            history.push(Routing.root)
         }
-        else { }
     }
-    let onClose = () => {
-        history.push('/contactList/')
+
+    const onClose = () => {
+        history.push(Routing.root)
     }
     return (
         <div className='CreateContact'>
             <div>
                 <span className='CreateContact__title'>New contact</span>
             </div>
-            <div>
-                <input onChange={onNameChange} value={contactName || ''}
-                    placeholder="Contact Name" className='CreateContact__nameInput' autoFocus />
-            </div>
-            <div>
-                <input onChange={onNumberChange} value={contactNumber || ''} type='number'
-                    placeholder="Contact Phone" className='CreateContact__numberInput' />
-            </div>
-            <div>
-                <button onClick={onSave} className='CreateContact__save'>
-                    Save
-                </button>
-                <button onClick={onClose} className='CreateContact__close'>
-                    Close
-                </button>
-            </div>
+            <form onSubmit={onSave}>
+                <Input onChange={onNameChange} value={contactName || ''}
+                    minLength='1' maxLength='12' autoFocus />
+                <Input type='tel' placeholder='Contact Phone number'
+                    title='Only numbers are available, minimum 6 numbers'
+                    onChange={onNumberChange} value={contactNumber || ''}
+                    pattern='[0-9]{6,15}' minLength='6' maxLength='15' />
+                <Input type='submit' value='Save' className='CreateContact__save' />
+                <Input type='button' value='Close' className='CreateContact__close'
+                    onClick={onClose} />
+            </form>
         </div>
     )
 }

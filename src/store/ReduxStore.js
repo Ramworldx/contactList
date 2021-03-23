@@ -1,6 +1,6 @@
-import { combineReducers, createStore } from "redux";
-import { loadState } from "../localStorage/LocalStorage";
-import MainPageReducer from "./reducers/MainPageReducer";
+import { combineReducers, createStore } from 'redux';
+import { loadState } from '../localStorage/LocalStorage';
+import MainPageReducer from './reducers/MainPageReducer';
 
 const preloadState = loadState();
 

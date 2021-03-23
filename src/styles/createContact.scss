@@ -6,13 +6,12 @@
   bottom: 4%;
   padding: 15;
   border: 0.5px solid rgb(117, 111, 111);
-  height: 92vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   border-radius: 5%;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(248, 248, 248);
 
   .CreateContact__title {
     display: block;
@@ -37,7 +36,7 @@
   .CreateContact__save {
     display: block;
     color: rgb(255, 255, 255);
-    background-color: rgb(63, 199, 0);
+    background-color: rgb(6, 198, 104);
     border-radius: 7%;
     border: none;
     outline: none;
@@ -47,7 +46,7 @@
     font-weight: 600;
     &:hover {
       color: rgb(255, 255, 255);
-      background-color: rgb(0, 255, 0);
+      background-color: rgb(3, 211, 3);
     }
     &:active {
       color: rgb(9, 255, 0);
@@ -55,10 +54,10 @@
     }
   }
   .CreateContact__close {
-    color: white;
-    background-color: rgb(204, 29, 29);
+    color: rgb(255, 86, 86);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 85, 85);
     border-radius: 7%;
-    border: none;
     outline: none;
     width: 13.2em;
     height: 2.9em;
@@ -66,7 +65,7 @@
     font-weight: 600;
     &:hover {
       color: rgb(255, 255, 255);
-      background-color: rgb(255, 0, 0);
+      background-color: rgb(255, 75, 75);
     }
     &:active {
       color: rgb(60, 218, 54);

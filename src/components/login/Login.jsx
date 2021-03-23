@@ -1,8 +1,9 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
-import { setIsLogged, setUserName } from '../../store/actions/Actions'
-import '../../styles/login.scss'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { Routing } from '../../Routing';
+import { setIsLogged, setUserName } from '../../store/actions/Actions';
+import Input from '../elements/Input';
 
 const Login = () => {
 
@@ -12,32 +13,28 @@ const Login = () => {
 
     const history = useHistory()
 
-    let onChangeName = (event) => {
-        let value = event.target.value
+    const onChangeName = (e) => {
+        const value = e.target.value
         dispatch(setUserName(value))
     }
-    let onSubmit = () => {
-        if (name.length >= 1) {
-            history.push('/')
+    const onSubmit = (e) => {
+        e.preventDefault()
+        if (name) {
+            history.push(Routing.root)
             dispatch(setIsLogged(true))
         }
-        else {}
     }
 
     return (
-        <div className='Login'>
+        <div className='CreateContact'>
             <div>
-                <span className='Login__title'>SignIn</span>
+                <span className='CreateContact__title'>Sign In</span>
             </div>
-            <div>
-                <input onChange={onChangeName} className='Login__input' placeholder="What's your name?"
-                value={name} autoFocus/>
-            </div>
-            <div>
-                <button onClick={onSubmit} className='Login__submit'>
-                    Submit
-                </button>
-            </div>
+            <form onSubmit={onSubmit}>
+                <Input onChange={onChangeName} value={name || ''} placeholder='What`s your name?'
+                    autoFocus />
+                <Input type='submit' value='Submit' className='CreateContact__save' />
+            </form>
         </div>
     )
 }

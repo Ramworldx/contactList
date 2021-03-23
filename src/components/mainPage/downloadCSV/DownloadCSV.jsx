@@ -1,7 +1,6 @@
 import React from 'react';
 import { CSVLink } from 'react-csv';
 import { useSelector } from 'react-redux';
-import '../../../styles/mainPage.scss'
 
 export const DownloadCSV = () => {
 

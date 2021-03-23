@@ -2,13 +2,14 @@ import {
   SET_USER_NAME,
   SET_IS_LOGGED,
   SET_CONTACT,
+  SET_ALL_CONTACTS,
   UPDATE_CONTACT,
-  CLEAR_CONTACTS,
+  CLEAR_STATE,
   DELETE_CONTACT,
-} from "../actions/Actions";
+} from '../actions/Actions';
 
 const initialState = {
-  userName: "",
+  userName: '',
   isLogged: false,
   contactsData: [],
 };
@@ -33,6 +34,12 @@ const MainPageReducer = (state = initialState, action) => {
         contactsData: [...state.contactsData, action.contact],
       };
     }
+    case SET_ALL_CONTACTS: {
+      return {
+        ...state,
+        contactsData: action.contacts,
+      };
+    }
     case DELETE_CONTACT: {
       return {
         ...state,
@@ -50,11 +57,8 @@ const MainPageReducer = (state = initialState, action) => {
         }),
       };
     }
-    case CLEAR_CONTACTS: {
-      return {
-        ...state,
-        contactsData: action.clear,
-      };
+    case CLEAR_STATE: {
+      return initialState;
     }
     default:
       return state;

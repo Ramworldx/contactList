@@ -1,29 +1,29 @@
-import { Route, useHistory } from "react-router";
-import Login from "./components/login/Login";
-import MainPage from "./components/mainPage/MainPage";
-import { useSelector } from "react-redux";
-import CreateContact from "./components/add-createContact/CreateContact";
-import EditContact from "./components/add-createContact/EditContact";
+import { Redirect, Route } from 'react-router';
+import Login from './components/login/Login';
+import MainPage from './components/mainPage/MainPage';
+import { useSelector } from 'react-redux';
+import CreateContact from './components/add-createContact/CreateContact';
+import EditContact from './components/add-createContact/EditContact';
+import { Routing } from './Routing';
 
 const App = () => {
   const isLogged = useSelector((s) => s.mainPage.isLogged);
-  const history = useHistory();
 
   if (!isLogged) {
-    history.push("/login");
     return (
-      <div>
-        <Route path="/login" component={Login} />
-      </div>
+      <>
+        <Redirect to={Routing.login} />
+        <Route path={Routing.login} component={Login} />
+      </>
     );
   } else {
     return (
-      <div>
-        <Route exact path="/" component={MainPage} />
-        <Route path="/new" component={CreateContact} />
-        <Route path="/:id/edit" component={EditContact} />
-        <Route path="/login" component={Login} />
-      </div>
+      <>
+        <Route exact path={Routing.root} component={MainPage} />
+        <Route path={Routing.new} component={CreateContact} />
+        <Route path={Routing.edit} component={EditContact} />
+        <Route path={Routing.login} component={Login} />
+      </>
     );
   }
 };

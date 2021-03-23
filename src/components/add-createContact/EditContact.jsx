@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router'
-import { updateContact } from '../../store/actions/Actions'
-import '../../styles/createContact.scss'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
+import { Routing } from '../../Routing';
+import { updateContact } from '../../store/actions/Actions';
+import Input from '../elements/Input';
 
 const EditContact = () => {
 
@@ -21,47 +22,43 @@ const EditContact = () => {
         //eslint-disable-next-line
     }, [])
 
-    let onNameChange = (event) => {
-        let value = event.target.value
+    const onNameChange = (e) => {
+        const value = e.target.value
         setContactName(value)
     }
-    let onNumberChange = (event) => {
-        let value = event.target.value
+    const onNumberChange = (e) => {
+        const value = e.target.value
         setContactNumber(value)
     }
-    let onSave = () => {
+    const onSave = (e) => {
+        e.preventDefault()
         const newContact = {
             ...contact,
             name: contactName,
             number: contactNumber,
         }
-        dispatch(updateContact(newContact))
-        history.push('/contactList/')
+        if (contactName && contactNumber) {
+            dispatch(updateContact(newContact))
+            history.push(Routing.root)
+        }
     }
-    let onClose = () => {
-        history.push('/contactList/')
+    const onClose = () => {
+        history.push(Routing.root)
     }
     return (
         <div className='CreateContact'>
             <div>
                 <span className='CreateContact__title'>Edit contact</span>
             </div>
-            <div>
-                <input placeholder="Contact Name" className='CreateContact__nameInput' 
-                    onChange={onNameChange} value={contactName || ''} autoFocus />
-            </div>
-            <div>
-                <input placeholder="Contact Phone" className='CreateContact__numberInput'
-                    onChange={onNumberChange} value={contactNumber || ''} type='number' />
-            </div>
-            <div>
-                <button className='CreateContact__save' onClick={onSave}>
-                    Save
-                </button>
-                <button className='CreateContact__close' onClick={onClose}>
-                    Close
-                </button>
-            </div>
+            <form onSubmit={onSave}>
+                <Input onChange={onNameChange} value={contactName || ''}
+                    minLength='1' maxLength='12' autoFocus />
+                <Input type='tel' pattern='[0-9]{6,15}' minLength='6' maxLength='15'
+                    onChange={onNumberChange} value={contactNumber || ''} placeholder='Contact Phone' 
+                    title='Only numbers are available, minimum 6 numbers'/>
+                <Input type='submit' value='Save' className='CreateContact__save' />
+                <Input type='button' value='Close' className='CreateContact__close' onClick={onClose} />
+            </form>
         </div>
     )
 }

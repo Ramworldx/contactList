@@ -10,9 +10,7 @@ import callIcon from '../../../assets/call-button-icon.png'
 import IconButton from '@material-ui/core/IconButton';
 import ModalEx from '../../modalComponent/Modal';
 import pencil from '../../../assets/pencil-icon.png'
-import deleteIcon from '../../../assets/delete-icon.png'
-import { deleteContact } from '../../../store/actions/Actions';
-import { useDispatch } from 'react-redux';
+import AlertDialog from './AlertDialog';
 
 const useStyles = makeStyles({
 
@@ -21,15 +19,16 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    maxWidth: '300px',
+    width: '310px',
+    maxWidth: '310px',
     maxHeight: '400px',
-    backgroundColor: 'rgb(250, 250, 250)',
-    margin: '2%',
+    backgroundColor: 'rgb(240, 240, 240)',
+    margin: '7px',
   },
   media: {
-    margin: '0.5em',
-    height: '12em',
-    width: '12em',
+    margin: '20px 0px 1px 0px',
+    height: '10em',
+    width: '10em',
     borderRadius: '50%',
   },
   edit: {
@@ -37,33 +36,29 @@ const useStyles = makeStyles({
   },
   editChildren: {
     position: 'absolute',
-    left: '3.7em',
+    left: '4.6em',
+    top: '0.02em',
     height: '1.8em',
     width: '1.8em',
     borderRadius: 300,
   },
   editIcon: {
     position: 'inherit',
-    height: '1.2em',
-    width: '1.2em',
+    height: '2em',
+    width: '2em',
     fontSize: '1rem',
   },
   deleteChildren: {
     position: 'absolute',
-    right: '3.7em',
+    right: '4.6em',
+    top: '0.02em',
     height: '1.8em',
     width: '1.8em',
-    borderRadius: 300,
-  },
-  deleteIcon: {
-    position: 'inherit',
-    height: '1.2em',
-    width: '1.2em',
-    fontSize: '1rem',
+    borderRadius: '50%',
   },
   buttonCall: {
     position: 'relative',
-    width: '18.7em',
+    width: '21em',
     height: '3.4em',
     borderRadius: '5%',
     margin: ' 0% 1.5% 0% 1.5%'
@@ -80,39 +75,33 @@ const useStyles = makeStyles({
 
 const MediaCard = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch()
-  
-  let onDelete = () => {
-    dispatch(deleteContact(props.contact.id))
-  }
 
   return (
 
     <Card className={classes.root}>
       <div className={classes.edit}>
-        <ModalEx edit={'edit'} id={props.contact.id}>
+        <ModalEx edit='edit' id={props.contact.id}>
           <IconButton className={classes.editChildren} >
             <img className={classes.editIcon} alt='edit'
               src={pencil} />
           </IconButton>
         </ModalEx>
-        <IconButton className={classes.deleteChildren} onClick={onDelete}>
-          <img className={classes.deleteIcon} alt='delete'
-            src={deleteIcon} />
+        <IconButton className={classes.deleteChildren}>
+          <AlertDialog contact={props.contact} className={classes.deleteIcon} alt='delete' />
         </IconButton>
       </div>
       <CardMedia
         className={classes.media}
         image={props.contact.imageURL}
-        title="User"
+        title='User'
       />
       <CardContent>
-        <Typography gutterBottom variant="h4" component="h2">
+        <Typography gutterBottom variant='h4' component='h2'>
           {props.contact.name}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="medium" color="primary" className={classes.buttonCall}>
+        <Button size='medium' color='primary' className={classes.buttonCall}>
           <a href={`tel:${props.contact.number}`}>
             <img src={callIcon} alt='call' className={classes.iconCall} />
           </a>

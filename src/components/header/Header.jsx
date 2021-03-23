@@ -1,22 +1,15 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
-import { setUserName, clearContacts, setIsLogged } from '../../store/actions/Actions'
-import '../../styles/header.scss'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearState } from '../../store/actions/Actions';
 
 const Header = () => {
     const name = useSelector(state => state.mainPage.userName)
 
     const dispatch = useDispatch()
-    
-    const history = useHistory()
 
-    let onLogoutClick = () => {
+    const onLogoutClick = () => {
         localStorage.clear()
-        dispatch(setUserName(''))
-        dispatch(setIsLogged(false))
-        dispatch(clearContacts(''))
-        history.push('/login')
+        dispatch(clearState())
     }
     return (
         <div className='Header'>
